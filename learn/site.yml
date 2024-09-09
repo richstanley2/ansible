@@ -1,0 +1,36 @@
+---
+
+- hosts:  all
+  become: true
+  tasks:
+
+  - name: install updates (CentOS)
+    dnf:
+       update_only: yes
+       update_cache: yes
+    when: ansible_distribution == "CentOS"
+ 
+  - name: install updates (Ubuntu)
+    apt:
+       upgrade: dist
+       update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+
+
+  - name:  install apache2, mariadb and php packages on Ubuntu
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+        - mariadb-server
+      state: latest
+    when: ansible_distribution == "Ubuntu"
+
+  - name:  install apache2, mariadb and php packages on Rocky
+    dnf:
+      name:
+        - httpd
+        - php
+        - mariadb-server
+      state: latest
+    when: ansible_distribution == "Rocky"
