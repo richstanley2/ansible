@@ -46,7 +46,7 @@
   tasks:
  
   - name: install mariadb server package (CentOS)
-    tags: database, mariadb, centos
+    tags: db, database, mariadb, centos
     dnf:
        name: mariadb
        state: latest
