@@ -1,0 +1,8 @@
+[lamp_servers]
+hesk
+icinga
+kanboard
+
+[monitor_servers]
+grafana
+syslog
