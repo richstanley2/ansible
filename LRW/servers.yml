@@ -4,11 +4,11 @@
   become: true
   pre_tasks:
  
-  - name: install updates (Ubuntu)
-    apt:
-      upgrade: dist
+  - name: install updates (Rocky9)
+    tags: always
+    dnf:
+      update_only: yes
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
  
  
 - hosts: lamp_servers
@@ -31,4 +31,21 @@
         - mariadb-server
       state: latest
     when: ansible_distribution == "Ubuntu"
+
+  - name: install httpd, qemu guest agent, apache2, mariadb and php packages (Rocky9)
+    tags: apache, centos, httpd
+    dnf:
+      name:
+        - httpd
+        - php
+        - php-gd
+        - php-intl
+        - php-ldap
+        - php-opcache
+        - php-mbstring
+        - php-json
+        - php-xml
+        - qemu-guest-agent
+        - mariadb-server        
+      state: latest
  

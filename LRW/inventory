@@ -3,6 +3,6 @@ hesk
 icinga
 kanboard
 
-[monitor_servers]
+[nolamp_servers]
 grafana
 syslog

@@ -4,12 +4,12 @@
   become: true
   pre_tasks:
  
-  - name: install updates (CentOS)
+  - name: install updates (Rocky9)
     tags: always
     dnf:
       update_only: yes
       update_cache: yes
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "Rocky9"
  
   - name: install updates (Ubuntu)
     tags: always
@@ -23,14 +23,14 @@
   become: true
   tasks:
  
-  - name: install httpd package (CentOS)
-    tags: apache, centos, httpd
+  - name: install httpd package (Rocky9)
+    tags: apache, rocky9, rocky, httpd
     dnf:
       name:
         - httpd
         - php
       state: latest
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "Rocky9"
  
   - name: install apache2 package (Ubuntu)
     tags: apache2,ubuntu
@@ -54,12 +54,12 @@
   become: true
   tasks:
  
-  - name: install mariadb server package (CentOS)
-    tags: db, database, mariadb, centos
+  - name: install mariadb server package (Rocky9)
+    tags: db, database, mariadb, rocky9, rockyterra
     dnf:
        name: mariadb
        state: latest
-    when: ansible_distribution == "CentOS"
+    when: ansible_distribution == "Rocky9"
  
   - name: install mariadb server
     tags: database, mariadb, ubuntu
