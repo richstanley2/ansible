@@ -47,6 +47,14 @@
         - php
       state: latest
     when: ansible_distribution == "Rocky"
+
+  - name: start and enable httpd (Rocky9)
+    tags: apache,rocky ,httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_distribution == "Rocky"
  
   - name: install apache2 package (Ubuntu)
     tags: apache2,ubuntu
