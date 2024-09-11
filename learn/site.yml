@@ -9,7 +9,7 @@
     dnf:
       update_only: yes
       update_cache: yes
-    when: ansible_distribution == "Rocky9"
+    when: ansible_distribution == "Rocky"
  
   - name: install updates (Ubuntu)
     tags: always
@@ -17,8 +17,24 @@
       upgrade: dist
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
- 
- 
+
+- hosts: workstations
+  become: true
+  tasks:
+
+  - name: install unzip
+    package:
+      name: unzip
+
+  - name: install terraform
+    unarchive:
+     src: https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
+     dest: /usr/local/bin
+     remote_src: yes
+     mode: 0755
+     owner: root
+     group: root 
+
 - hosts: web_servers
   become: true
   tasks:
@@ -30,7 +46,7 @@
         - httpd
         - php
       state: latest
-    when: ansible_distribution == "Rocky9"
+    when: ansible_distribution == "Rocky"
  
   - name: install apache2 package (Ubuntu)
     tags: apache2,ubuntu
@@ -54,12 +70,12 @@
   become: true
   tasks:
  
-  - name: install mariadb server package (Rocky9)
+  - name: install mariadb server package (Rocky)
     tags: db, database, mariadb, rocky9, rockyterra
     dnf:
        name: mariadb
        state: latest
-    when: ansible_distribution == "Rocky9"
+    when: ansible_distribution == "Rocky"
  
   - name: install mariadb server
     tags: database, mariadb, ubuntu
