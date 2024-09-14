@@ -1,21 +1,21 @@
 ---
- 
+
 - hosts: all
   become: true
   pre_tasks:
- 
-  - name: install updates (Rocky9)
+
+  - name: update repository index (Rocky)
     tags: always
     dnf:
-      update_only: yes
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Rocky"
- 
-  - name: install updates (Ubuntu)
+
+  - name: update repository index (Ubuntu)
     tags: always
     apt:
-      upgrade: dist
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
 
 - hosts: workstations
