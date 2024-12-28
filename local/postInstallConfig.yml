@@ -1,0 +1,68 @@
+---
+ 
+- hosts: all
+  become: true
+  pre_tasks:
+ 
+  - name: install updates (Rocky9)
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+ 
+  - name: install updates (Ubuntu)
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu" 
+
+- hosts: lamp_servers
+  become: true
+  tasks:
+ 
+
+  - name: install httpd, qemu guest agent, apache2, mariadb and php packages (Rocky9)
+    tags: apache, centos, httpd, rocky 
+    dnf:
+      name:
+        - httpd
+        - php
+        - php-gd
+        - php-intl
+        - php-ldap
+        - php-opcache
+        - php-mbstring
+        - php-json
+        - php-xml
+        - qemu-guest-agent
+        - mariadb-server        
+      state: latest
+    when: ansible_distribution == "Rocky9"
+
+  - name:  install apache2, mariadb and php packages on Ubuntu
+    apt:
+      name:
+        - apache2
+        - libapache2-mod-php
+        - mariadb-server
+        - qemu-guest-agent
+      state: latest
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: secure mariadb
+  
+    expect:
+      command: mysql_secure_installation
+      responses:
+        'Enter current password for root': ''
+        'Set root password': 'y'
+        'New password': 'not2bright'
+        'Re-enter new password': 'not2bright'
+        'Remove anonymous users': 'y'
+        'Disallow root login remotely': 'y'
+        'Remove test database': 'y'
+        'Reload privilege tables now': 'y'
+      timeout: 1
+    register: secure_mariadb
+    failed_when: "'... Failed!' in secure_mariadb.stdout_lines"  

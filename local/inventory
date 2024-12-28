@@ -1,0 +1,9 @@
+[lamp_servers]
+hesk
+icinga
+kanboard
+
+[nolamp_servers]
+docker
+grafana
+syslog
