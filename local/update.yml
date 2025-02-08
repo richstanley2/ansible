@@ -13,5 +13,6 @@
     tags: always
     apt:
       update_cache: yes
+      upgrade: yes
     changed_when: false
     when: ansible_distribution == "Ubuntu"

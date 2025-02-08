@@ -1,0 +1,19 @@
+---
+- name: Deploy traefik 
+  hosts: docker 
+
+  tasks:
+    - name: Deploy traefik
+      community.docker.docker_container:
+        name: traefik
+        image: "traefik:latest"
+        command: --api.insecure=true --providers.docker
+        ports:
+          - "80:80"
+          - "8081:8080"
+        volumes:
+          - /run/docker.sock:/run/docker.sock
+          - /etc/traefik:/etc/traefik
+        restart_policy: unless-stopped
+      become: true
+      become_user: rich 
