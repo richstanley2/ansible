@@ -10,15 +10,7 @@
       update_only: yes
       update_cache: yes
 
-- hosts: nolamp_rocky
-  become: true
-  pre_tasks:
- 
-  - name: install updates (Rocky9)
-    tags: always
-    dnf:
-      update_only: yes
-      update_cache: yes      
+   
 
 - hosts: lamp_ubuntu
   become: true
@@ -31,15 +23,6 @@
       update_cache: yes
    
 
-- hosts: nolamp_ubuntu
-  become: true
-  pre_tasks:
-   
-  - name: install updates (Ubuntu)
-    tags: always
-    apt:
-      upgrade: dist
-      update_cache: yes
     
 
 - hosts: lamp_rocky

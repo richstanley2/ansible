@@ -1,25 +1,13 @@
 
 [lamp_rocky]
 icinga
-#hesk
-#kanboard
-#phpmyadmin
-
-#[nolamp_rocky]
-#grafana
-#syslog
-
-#[lamp_ubuntu]
 
 
 [nolamp_ubuntu]
-ns1
-ns2
 docker
 docker1
-dockerhplaptop
 mail
-#hpsffubuntu
+hpdockerlaptop
 
 
 
